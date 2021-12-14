@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import { onMessage, getMessaging, getToken } from '@firebase/messaging';
+import { onMessage, getMessaging, getToken } from 'firebase/messaging';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCXCPUSMLqN2yr2tEXfC_-Fejfh9gS4E3U",
@@ -12,8 +12,15 @@ const firebaseConfig = {
 };
 
 
-const app = firebase.initializeApp(firebaseConfig);
-const message = getMessaging(app);
+let app;
+let message;
+
+function fireabseInit() {
+
+    app = firebase.initializeApp(firebaseConfig);
+    message = getMessaging(app)
+
+}
 
 
 const getBrowserToken = async () => {
@@ -32,4 +39,4 @@ const onMessageListener = (nextFunction) => {
 }
 
 
-export { getBrowserToken, onMessageListener }
+export { fireabseInit , getBrowserToken, onMessageListener }

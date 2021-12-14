@@ -1,10 +1,11 @@
 import './App.css';
 import { Button } from 'react-bootstrap';
-import { getBrowserToken, onMessageListener } from './firebase';
+import { fireabseInit, getBrowserToken, onMessageListener } from './firebase';
 import { useEffect } from 'react';
 
 function App() {
     useEffect(() => {
+        fireabseInit()
         onMessageListener(onNotification);
     }, []);
 
