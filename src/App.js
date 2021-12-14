@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { Button } from 'react-bootstrap';
+import { getBrowserToken, onMessageListener } from './firebase';
+import { useEffect } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        onMessageListener(onNotification);
+    }, []);
+
+    function onNotification(payload) {
+        const data = payload.notification;
+        const notificationTitle = data.title;
+        const notificationOptions = {
+            body: data.body
+        };
+
+        if (!('Notification' in window)) {
+            console.log("Browser does not support system notification");
+
+        } else if (Notification.permission === "granted") {
+            new Notification(notificationTitle, notificationOptions);
+        }
+    }
+
+    return (
+        <div className="App">
+            <Button onClick={getBrowserToken}>
+                Generate Token
+            </Button>
+        </div>
+    );
 }
 
 export default App;
